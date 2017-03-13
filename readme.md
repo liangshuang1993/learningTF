@@ -6,4 +6,5 @@ This is a linear regression
 ###logistic regression###
 This is logistic regression using mnist
 
+
 ![](logistic_regression.png)
