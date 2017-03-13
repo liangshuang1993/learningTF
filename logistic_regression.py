@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 length = mnist.train.images.shape[0]
 n_pixels = mnist.train.images.shape[1]
 n_labels = mnist.train.labels.shape[1]
-learning_rate = 0.05
+learning_rate = 0.01
 epoch_num = 100
 
 W = tf.Variable(tf.zeros([n_pixels, n_labels])) 
@@ -35,8 +35,8 @@ with tf.Session() as sess:
         if epoch % 5 == 0:
            print "epoch=", epoch, "loss=", l
         plt.plot(epoch, l, 'ro')
-    plt.show()
 
-correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(predict, 1))
-accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-print sess.run(accuracy, feed_dict={X: mnist.test.images, y: mnist.test.labels})
+    correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(predict, 1))
+    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    print sess.run(accuracy, feed_dict={X: mnist.test.images, y: mnist.test.labels})
+    plt.show()
