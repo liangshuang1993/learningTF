@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 length = mnist.train.images.shape[0]
 n_pixels = mnist.train.images.shape[1]
 n_labels = mnist.train.labels.shape[1]
-learning_rate = 0.01
+learning_rate = 0.02
 epoch_num = 100
 
 W = tf.Variable(tf.zeros([n_pixels, n_labels])) 
