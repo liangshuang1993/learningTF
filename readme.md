@@ -8,3 +8,7 @@ This is logistic regression using mnist
 
 
 ![](logistic_regression.png)
+
+###save and restore model###
+Document "save_and_restore_model" contains this part
+
