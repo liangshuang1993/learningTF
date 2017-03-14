@@ -12,3 +12,7 @@ This is logistic regression using mnist
 ###save and restore model###
 Document "save_and_restore_model" contains this part
 
+#convolutional neural network
+accuracy: 94.02%
+
+![](conv.png)
