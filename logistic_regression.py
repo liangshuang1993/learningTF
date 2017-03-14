@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 length = mnist.train.images.shape[0]
 n_pixels = mnist.train.images.shape[1]
 n_labels = mnist.train.labels.shape[1]
-learning_rate = 0.02
+learning_rate = 0.002
 epoch_num = 100
 
 W = tf.Variable(tf.zeros([n_pixels, n_labels])) 
@@ -16,7 +16,7 @@ b = tf.Variable(tf.zeros([n_labels]))
 X = tf.placeholder(dtype=tf.float32, shape=[None, n_pixels], name="X")
 y = tf.placeholder(dtype=tf.float32, shape=[None, n_labels], name="y")
 
-predict = tf.nn.softmax(tf.matmul(X, W) + b)
+predict = tf.matmul(X, W) + b
 loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels=y, logits=predict))
 train_step = tf.train.GradientDescentOptimizer(learning_rate).minimize(loss)
 
