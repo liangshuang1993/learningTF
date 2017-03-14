@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from tensorflow.examples.tutorials.mnist import input_data
 
 mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
-num_epoch = 100
+num_epoch = 10
 length = mnist.train.images.shape[0]
 
 def weight_variable(shape):
@@ -51,12 +51,13 @@ y_conv = tf.matmul(h_fc1_drop, W_fc2) + b_fc2
 
 cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=y_conv, labels=y))
 global_step = tf.Variable(0, trainable=False)
-learning_rate = tf.train.exponential_decay(0.01, global_step, 1000, 0.96, staircase=True)
+learning_rate = tf.train.exponential_decay(0.015, global_step, 1000, 0.9, staircase=True)
 train_step = tf.train.AdadeltaOptimizer(learning_rate).minimize(cross_entropy, global_step=global_step)
 correct_prediction = tf.equal(tf.argmax(y_conv, 1), tf.argmax(y, 1))
 accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 init = tf.global_variables_initializer()
 plt.figure()
+test_accuracy = []
 
 with tf.Session() as sess:
     sess.run(init)
@@ -67,6 +68,11 @@ with tf.Session() as sess:
         if epoch % 5 == 0:
             print "epoch=", epoch, "loss=", l
         plt.plot(epoch, l, 'ro')
-    print sess.run(accuracy, feed_dict={X: mnist.test.images, y: mnist.test.labels, keep_prob: 1})
+    for i in range(10):
+        test_x = mnist.test.images[1000 * i: 1000 * (i + 1), :]
+        test_y = mnist.test.labels[1000 * i: 1000 * (i + 1), :]
+        test_accuracy.append(sess.run(accuracy, feed_dict={X: test_x, y: test_y, keep_prob: 1}))
+    print sess.run(tf.reduce_mean(test_accuracy))
     plt.show()
+
     
